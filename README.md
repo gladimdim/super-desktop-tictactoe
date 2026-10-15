@@ -19,11 +19,11 @@ with a big board and the score beside it. Play the computer or a friend.
 - The computer wins when it can, blocks you when it must, and likes the centre
   and corners. A fork beats it.
 
-The panel is **always shown**: it opens when SUPER DESKTOP starts and every
-time SUPER DESKTOP is shown, also after you close it with ✕. The small **#**
-in the top bar brings it back at once. To hide it for good, turn the plugin
-off in Settings → Plugins. The game in progress and the score survive closing
-the panel and restarting SUPER DESKTOP. Colors come from your Omarchy theme.
+The panel opens when SUPER DESKTOP starts and stays open while SUPER
+DESKTOP is hidden. Close it with ✕ and it stays closed; the small **#** in
+the top bar brings it back. To turn it off completely, use Settings →
+Plugins. The game in progress and the score survive closing the panel and
+restarting SUPER DESKTOP. Colors come from your Omarchy theme.
 
 ## Install
 

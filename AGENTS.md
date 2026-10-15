@@ -19,12 +19,12 @@ the slots, add surfaces and files, and rewrite the starting QML entirely.
 
 ## What it does
 
-A tic-tac-toe game in a panel (`Panel.qml`, surface `game`) that is always
-shown on the SUPER DESKTOP desktop. Panels only run while open, so the
-top-bar item (`Toolbar.qml`, surface `button`, a small # icon) calls
-`panel.open` when it loads, every time the overlay is shown
-(`sd.visibleChanged`) and on a click. There is no way to close it for good
-except turning the plugin off in Settings → Plugins; keep it that way.
+A tic-tac-toe game in a panel (`Panel.qml`, surface `game`) on the SUPER
+DESKTOP desktop. The top-bar item (`Toolbar.qml`, surface `button`, a small #
+icon) calls `panel.open` when it loads (SUPER DESKTOP starting) and on a
+click. An open panel stays open while the overlay is hidden. When the user
+closes it with ✕ it stays closed until they click #: never reopen it on
+`sd.visibleChanged`, a timer or anything else the user did not click.
 
 The board is on the left, as large as the panel allows; a column on its right
 holds the mode switch (vs CPU / 2 Players), the score (one row each for X,

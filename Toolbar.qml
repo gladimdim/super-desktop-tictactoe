@@ -1,9 +1,9 @@
 import QtQuick
 
-// Keeps the game panel on the desktop: a panel only runs while it is open,
-// so this top-bar item (which always runs) opens it when the plugin loads
-// and every time SUPER DESKTOP is shown. A click brings it back at once.
-// To get rid of it, turn the plugin off in Settings → Plugins.
+// Puts the game panel on the desktop when the plugin loads (SUPER DESKTOP
+// starting). Open panels stay open while SUPER DESKTOP is hidden; a panel
+// closed with ✕ stays closed until this top-bar item is clicked.
+// To turn it off completely, use Settings → Plugins.
 Rectangle {
     id: root
     radius: height / 2
@@ -16,10 +16,6 @@ Rectangle {
     }
 
     Component.onCompleted: showPanel()
-    Connections {
-        target: sd
-        function onVisibleChanged(visible) { if (visible) root.showPanel() }
-    }
 
     // A small # board icon.
     Item {
