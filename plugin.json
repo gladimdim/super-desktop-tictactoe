@@ -1,0 +1,13 @@
+{
+  "id": "tictactoe",
+  "name": "TicTacToe",
+  "description": "A simple tic-tac-toe game in a panel that is always shown on the SUPER DESKTOP desktop: play the computer or a friend, with a saved score. A small # in the top bar reopens it; turn the plugin off in Settings → Plugins to hide it.",
+  "api": 1,
+  "version": "1.0.0",
+  "minHost": "1.6.0",
+  "categories": ["games"],
+  "surfaces": [
+    { "id": "button", "slot": "toolbar.item", "qml": "Toolbar.qml", "size": 40, "tooltip": "Tic-tac-toe · always on the desktop (turn it off in Settings → Plugins)" },
+    { "id": "game", "slot": "panel", "qml": "Panel.qml", "size": 640, "height": 460, "title": "Tic-tac-toe" }
+  ]
+}
