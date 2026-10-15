@@ -19,23 +19,32 @@ the slots, add surfaces and files, and rewrite the starting QML entirely.
 
 ## What it does
 
-A tic-tac-toe game in a panel (`Panel.qml`, surface `game`) on the SUPER
-DESKTOP desktop. The top-bar item (`Toolbar.qml`, surface `button`, a small #
-icon) calls `panel.open` when it loads (SUPER DESKTOP starting) and on a
-click. An open panel stays open while the overlay is hidden. When the user
-closes it with ✕ it stays closed until they click #: never reopen it on
-`sd.visibleChanged`, a timer or anything else the user did not click.
+A tic-tac-toe game on a card (`Game.qml`, surface `game`, slot `card`) on the
+SUPER DESKTOP desktop. A card, not a panel, on purpose: SUPER DESKTOP saves
+a card's place and whether it is open, and reopens it after a restart only if
+it was open, so the game comes back exactly as the user left it. A panel
+cannot do that (a plugin never learns that its panel was closed with ✕).
 
-The board is on the left, as large as the panel allows; a column on its right
+The top-bar item (`Toolbar.qml`, surface `button`, a small # icon) calls
+`card.open` once in `Component.onCompleted` the very first time the plugin
+loads, when `sd.values.shown` is not yet `true`, and sets `shown` once the
+call succeeds. After that it never opens the card by itself: a click on #
+calls `card.toggle`, and SUPER DESKTOP restores an open card at start. Do
+not open the card from `sd.visibleChanged`, a timer or a change of values,
+and do not drop the `shown` check: it is what lets a closed game stay
+closed across restarts.
+
+The board is on the left, as large as the card allows; a column on its right
 holds the mode switch (vs CPU / 2 Players), the score (one row each for X,
 draws and O, the player to move outlined), the status and New game / Reset.
 `Mark.qml` draws X and O with plain shapes.
 
 Everything is in `sd.values`: `board` (9 of `""`, `"X"`, `"O"`), `first` (who
-started this game; it alternates), `mode` (`"cpu"` or `"duo"`) and `score`
-(`{cpu: {X, O, draw}, duo: {...}}`). Only the panel writes them. `ttt.js` holds
-the rules (`winner`, `turn`, `full`), the computer player (`cpuMove`: win,
-block, centre, corner) and the theme color checks. In `cpu` mode the player
-is X and the computer O, moving 450 ms after the player.
+started this game; it alternates), `mode` (`"cpu"` or `"duo"`), `score`
+(`{cpu: {X, O, draw}, duo: {...}}`) and `shown` (the card was opened once).
+Only the game writes the first four; only the toolbar item writes `shown`.
+`ttt.js` holds the rules (`winner`, `turn`, `full`), the computer player
+(`cpuMove`: win, block, centre, corner) and the theme color checks. In `cpu`
+mode the player is X and the computer O, moving 450 ms after the player.
 
-Needs SUPER DESKTOP 1.6.0 or newer.
+Needs SUPER DESKTOP 1.6.0 or newer (the `card` slot).

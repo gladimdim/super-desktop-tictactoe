@@ -3,8 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import "ttt.js" as T
 
-// The game. Everything is saved in sd.values (board, who started, mode,
-// score), so a game survives the panel closing and SUPER DESKTOP restarting.
+// The game, on a card. Everything is saved in sd.values (board, who started, mode,
+// score), so a game survives the card closing and SUPER DESKTOP restarting.
 Rectangle {
     id: game
     color: sd.theme.background

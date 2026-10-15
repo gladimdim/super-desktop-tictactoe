@@ -1,21 +1,32 @@
 import QtQuick
 
-// Puts the game panel on the desktop when the plugin loads (SUPER DESKTOP
-// starting). Open panels stay open while SUPER DESKTOP is hidden; a panel
-// closed with ✕ stays closed until this top-bar item is clicked.
+// The game is a card: SUPER DESKTOP remembers whether it was open when it
+// last ran and starts with it open or closed, where it was. This item only
+// opens it the very first time the plugin loads (sd.values.shown is not yet
+// set); after that a click on # opens or closes it, and nothing else does.
 // To turn it off completely, use Settings → Plugins.
 Rectangle {
     id: root
     radius: height / 2
     color: area.containsMouse ? sd.theme.accent : Qt.alpha(sd.theme.surface, 0.9)
 
-    function showPanel() {
-        sd.call("panel.open", { surface: "game" }, function(result, err) {
-            if (err && err.code !== "not_connected") sd.log("panel.open failed: " + err.message)
-        })
+    function report(what, err) {
+        if (err && err.code !== "not_connected") sd.log(what + " failed: " + err.message)
     }
 
-    Component.onCompleted: showPanel()
+    function toggleGame() {
+        sd.call("card.toggle", { surface: "game" }, function(result, err) { report("card.toggle", err) })
+    }
+
+    // The first time only: show the game once, then leave it to the user
+    // (and to SUPER DESKTOP, which restores an open card after a restart).
+    Component.onCompleted: {
+        if (sd.values.shown === true) return
+        sd.call("card.open", { surface: "game" }, function(result, err) {
+            report("card.open", err)
+            if (!err) sd.setValue("shown", true)
+        })
+    }
 
     // A small # board icon.
     Item {
@@ -53,6 +64,6 @@ Rectangle {
         anchors.fill: parent
         hoverEnabled: true
         cursorShape: Qt.PointingHandCursor
-        onClicked: root.showPanel()
+        onClicked: root.toggleGame()
     }
 }

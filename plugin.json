@@ -1,13 +1,13 @@
 {
   "id": "tictactoe",
   "name": "TicTacToe",
-  "description": "A simple tic-tac-toe game in a panel on the SUPER DESKTOP desktop: play the computer or a friend, with a saved score. It opens when SUPER DESKTOP starts; ✕ closes it and a small # in the top bar brings it back.",
+  "description": "A simple tic-tac-toe game on a card on the SUPER DESKTOP desktop: play the computer or a friend, with a saved score. It opens the first time; after that SUPER DESKTOP starts with it open or closed, as you left it. A small # in the top bar opens and closes it.",
   "api": 1,
-  "version": "1.0.1",
+  "version": "1.1.0",
   "minHost": "1.6.0",
   "categories": ["games"],
   "surfaces": [
-    { "id": "button", "slot": "toolbar.item", "qml": "Toolbar.qml", "size": 40, "tooltip": "Tic-tac-toe · click to open the game" },
-    { "id": "game", "slot": "panel", "qml": "Panel.qml", "size": 640, "height": 460, "title": "Tic-tac-toe" }
+    { "id": "button", "slot": "toolbar.item", "qml": "Toolbar.qml", "size": 40, "tooltip": "Tic-tac-toe · click to open or close the game" },
+    { "id": "game", "slot": "card", "qml": "Game.qml", "size": 640, "height": 460, "title": "Tic-tac-toe" }
   ]
 }
